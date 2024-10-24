@@ -126,4 +126,4 @@ def report_post(post_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=9050)  # Добавлен параметр порта
+    app.run(host='0.0.0.0', port=9050)  # Изменен параметр host для доступа извне
