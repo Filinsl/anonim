@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Post</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Post #{{ post.id }}</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.content }}</h5>
+            <p class="card-text">Contact: {{ post.contact }}</p>
+            <p class="card-text"><small class="text-muted">Tags: {{ post.tags | join(', ') }}</small></p>
+            <p class="card-text"><small class="text-muted">Date: {{ post.date | format_date }}</small></p>
+        </div>
+    </div>
+
+    <!-- Button to report -->
+    <button class="btn btn-danger mt-4" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+
+    <a href="/" class="btn btn-primary mt-4">Back</a>
+</div>
+
+<!-- Report modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">Report Post #{{ post.id }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm" method="POST" action="{{ url_for('report_post', post_id=post.id) }}">
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason:</label>
+                        <textarea class="form-control" id="reason" name="reason" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Submit Report</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
